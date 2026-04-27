@@ -8,15 +8,20 @@
 </head>
 <body>
 
+<button class="btn-theme" id="themeBtn" onclick="toggleTheme()" title="테마 변경">🌙</button>
+
 <h1>🎱 로또 번호 추첨기</h1>
 <p class="subtitle">1~45 중 6개 + 보너스 1개를 자동으로 추첨합니다</p>
 
 <div class="card">
   <div class="balls-wrap" id="ballsWrap">
-    <span style="color:#8892b0; font-size:0.9rem;">버튼을 눌러 추첨하세요!</span>
+    <span class="placeholder-msg">버튼을 눌러 추첨하세요!</span>
   </div>
 
-  <button class="btn-draw" id="drawBtn" onclick="draw()">🎲 번호 추첨!</button>
+  <div class="btn-group">
+    <button class="btn-draw" id="drawBtn" onclick="draw()">🎲 1개 추첨</button>
+    <button class="btn-draw btn-multi" id="drawMultiBtn" onclick="drawMulti()">⚡ 5개 동시 추첨</button>
+  </div>
 
   <div class="divider"></div>
 
