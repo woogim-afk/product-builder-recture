@@ -66,6 +66,8 @@
   <a class="back-link" href="index.html">← 추첨기로 돌아가기</a>
 
   <form action="https://formspree.io/f/xvzdnndp" method="POST">
+    <input type="hidden" name="_next" value="contact.html?sent=1" />
+    <input type="hidden" name="_subject" value="[로또 추첨기] 제휴 문의" />
 
     <div class="form-group">
       <label for="name">이름 *</label>
@@ -98,6 +100,11 @@
     isDark = !isDark;
     document.body.classList.toggle('light', !isDark);
     document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
+  }
+
+  if (location.search.includes('sent=1')) {
+    var card = document.querySelector('.card');
+    card.innerHTML = '<p style="text-align:center;padding:2rem 0;font-size:1rem;font-weight:700;color:#a8d8a8;">✅ 문의가 접수됐어요!<br><span style="font-weight:400;font-size:0.9rem;color:var(--text-secondary)">빠른 시일 내에 연락드릴게요.</span></p><a class="back-link" href="index.html" style="display:block;text-align:center;">← 추첨기로 돌아가기</a>';
   }
 </script>
 </body>
