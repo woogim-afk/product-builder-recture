@@ -307,12 +307,22 @@
   }
 
   async function analyse(imgEl) {
-    document.getElementById('loadingText').textContent = 'AI 모델 불러오는 중...';
-    await loadModel();
-    document.getElementById('loadingText').textContent = '동물상 계산 중... 🔍';
-    var predictions = await tfModel.classify(imgEl, 20);
-    document.getElementById('loadingWrap').style.display = 'none';
-    showResult(calcScores(predictions));
+    try {
+      document.getElementById('loadingText').textContent = 'AI 모델 불러오는 중...';
+      await loadModel();
+      document.getElementById('loadingText').textContent = '동물상 계산 중... 🔍';
+      var predictions = await tfModel.classify(imgEl, 20);
+      document.getElementById('loadingWrap').style.display = 'none';
+      showResult(calcScores(predictions));
+    } catch (err) {
+      document.getElementById('loadingWrap').style.display = 'none';
+      document.getElementById('resultWrap').style.display = 'block';
+      document.getElementById('resultEmoji').textContent = '😅';
+      document.getElementById('resultTitle').textContent = '분석 실패';
+      document.getElementById('resultDesc').textContent = '네트워크 오류 또는 모델 로드에 실패했어요. 잠시 후 다시 시도해주세요.';
+      document.getElementById('personalityBox').textContent = '';
+      document.getElementById('retryBtn').style.display = 'block';
+    }
   }
 
   function handleFile(file) {
