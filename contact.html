@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제휴 문의 | 로또 번호 추첨기</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: var(--history-item-bg);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #f7971e;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #ffd200; }
+  </style>
+</head>
+<body>
+
+<button class="btn-theme" id="themeBtn" onclick="toggleTheme()" title="테마 변경">🌙</button>
+
+<h1>🤝 제휴 문의</h1>
+<p class="subtitle">광고·콘텐츠·비즈니스 제휴 문의를 남겨주세요</p>
+
+<div class="card">
+  <a class="back-link" href="index.html">← 추첨기로 돌아가기</a>
+
+  <form action="https://formspree.io/f/xvzdnndp" method="POST">
+
+    <div class="form-group">
+      <label for="name">이름 *</label>
+      <input type="text" id="name" name="name" placeholder="홍길동" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">이메일 *</label>
+      <input type="email" id="email" name="email" placeholder="hello@example.com" required />
+    </div>
+
+    <div class="form-group">
+      <label for="company">회사 / 단체명</label>
+      <input type="text" id="company" name="company" placeholder="(주)예시컴퍼니" />
+    </div>
+
+    <div class="form-group">
+      <label for="message">문의 내용 *</label>
+      <textarea id="message" name="message" placeholder="제휴 형태, 목적, 예상 일정 등을 자유롭게 적어주세요." required></textarea>
+    </div>
+
+    <button type="submit" class="btn-draw" style="width:100%;">✉️ 문의 보내기</button>
+
+  </form>
+</div>
+
+<script>
+  var isDark = true;
+  function toggleTheme() {
+    isDark = !isDark;
+    document.body.classList.toggle('light', !isDark);
+    document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
+  }
+</script>
+</body>
+</html>

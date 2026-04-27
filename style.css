@@ -369,6 +369,29 @@ h1 {
   font-size: 0.9rem;
 }
 
+/* ===== Contact Link ===== */
+.contact-link {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: var(--theme-btn-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 0.4rem 0.9rem;
+  backdrop-filter: blur(10px);
+  transition: color 0.2s, background 0.2s;
+  z-index: 100;
+}
+
+.contact-link:hover {
+  color: #ffd200;
+  background: var(--theme-btn-hover);
+}
+
 .multi-badge {
   font-size: 0.65rem;
   font-weight: 700;
