@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>동물상 테스트 🐾 강아지상? 고양이상?</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .upload-area {
+      border: 2px dashed var(--card-border);
+      border-radius: 16px;
+      padding: 2.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .upload-area:hover,
+    .upload-area.drag-over {
+      border-color: #f7971e;
+      background: rgba(247, 151, 30, 0.05);
+    }
+    .upload-area input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .upload-icon { font-size: 3rem; margin-bottom: 0.6rem; }
+    .upload-label {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      pointer-events: none;
+    }
+    .upload-sub {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      opacity: 0.6;
+      margin-top: 0.3rem;
+      pointer-events: none;
+    }
+    .preview-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .preview-img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--card-border);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .loading-wrap {
+      text-align: center;
+      padding: 1.5rem 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .paw-spin {
+      display: inline-block;
+      font-size: 2rem;
+      animation: pawSpin 1s linear infinite;
+      margin-bottom: 0.5rem;
+    }
+    @keyframes pawSpin { to { transform: rotate(360deg); } }
+    .result-emoji {
+      text-align: center;
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+    }
+    .result-title {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      background: linear-gradient(90deg, #f7971e, #ffd200);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .result-desc {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.8rem;
+    }
+    .score-label { font-size: 1.3rem; flex-shrink: 0; width: 36px; text-align: center; }
+    .score-bar-bg {
+      flex: 1;
+      height: 14px;
+      background: var(--history-item-bg);
+      border-radius: 7px;
+      overflow: hidden;
+    }
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 7px;
+      transition: width 0.9s cubic-bezier(0.34, 1.2, 0.64, 1);
+      width: 0%;
+    }
+    .bar-dog { background: linear-gradient(90deg, #f7d25c, #f0a500); }
+    .bar-cat { background: linear-gradient(90deg, #c5b3e6, #6a1b9a); }
+    .score-pct {
+      font-size: 0.85rem;
+      font-weight: 800;
+      width: 40px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .personality-box {
+      background: var(--history-item-bg);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      margin: 1.2rem 0;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    .personality-box strong { color: var(--text-primary); }
+    .btn-retry {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      background: var(--history-item-bg);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.6rem;
+    }
+    .btn-retry:hover { background: var(--theme-btn-hover); }
+  </style>
+</head>
+<body>
+
+<button class="btn-theme" id="themeBtn" onclick="toggleTheme()" title="테마 변경">🌙</button>
+<a class="contact-link" href="index.html">← 로또 추첨기</a>
+
+<h1>🐾 동물상 테스트</h1>
+<p class="subtitle">사진을 올리면 AI가 강아지상인지 고양이상인지 분석해드려요!</p>
+
+<div class="card">
+
+  <div class="upload-area" id="uploadArea">
+    <input type="file" id="fileInput" accept="image/*" />
+    <div class="upload-icon">📸</div>
+    <div class="upload-label">클릭하거나 사진을 드래그하세요</div>
+    <div class="upload-sub">JPG · PNG · WEBP 가능 &nbsp;|&nbsp; 파일은 서버에 전송되지 않아요</div>
+  </div>
+
+  <div class="preview-wrap" id="previewWrap" style="display:none">
+    <img class="preview-img" id="previewImg" alt="업로드 사진" crossorigin="anonymous" />
+  </div>
+
+  <div class="loading-wrap" id="loadingWrap" style="display:none">
+    <div class="paw-spin">🐾</div>
+    <div id="loadingText">AI 모델 불러오는 중...</div>
+  </div>
+
+  <div id="resultWrap" style="display:none">
+    <div class="result-emoji" id="resultEmoji"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-desc" id="resultDesc"></div>
+
+    <div class="score-row">
+      <span class="score-label">🐶</span>
+      <div class="score-bar-bg">
+        <div class="score-bar-fill bar-dog" id="barDog"></div>
+      </div>
+      <span class="score-pct" id="pctDog">0%</span>
+    </div>
+    <div class="score-row">
+      <span class="score-label">🐱</span>
+      <div class="score-bar-bg">
+        <div class="score-bar-fill bar-cat" id="barCat"></div>
+      </div>
+      <span class="score-pct" id="pctCat">0%</span>
+    </div>
+
+    <div class="personality-box" id="personalityBox"></div>
+  </div>
+
+  <button class="btn-retry" id="retryBtn" style="display:none" onclick="resetTest()">
+    🔄 다시 테스트하기
+  </button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js"></script>
+<script>
+  /* ===== Theme ===== */
+  var isDark = true;
+  function toggleTheme() {
+    isDark = !isDark;
+    document.body.classList.toggle('light', !isDark);
+    document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
+  }
+
+  /* ===== Keyword maps ===== */
+  var DOG_KEYS = [
+    'dog','retriever','labrador','poodle','bulldog','husky','corgi','dachshund',
+    'maltese','shepherd','terrier','spaniel','beagle','shih','pug','chihuahua',
+    'doberman','boxer','akita','samoyed','collie','dalmatian','schnauzer',
+    'pomeranian','puppy','hound','setter','vizsla','weimaraner','bloodhound',
+    'greyhound','whippet','basenji','malamute','keeshond','rottweiler','leonberg'
+  ];
+  var CAT_KEYS = [
+    'cat','kitten','tabby','persian','siamese','angora','ragdoll','maine',
+    'sphinx','sphynx','lynx','cheetah','leopard','tiger','lion','jaguar',
+    'cougar','panther','ocelot','egyptian','birman','burmese','manx','abyssinian'
+  ];
+
+  var RESULTS = {
+    dog: {
+      emoji: '🐶',
+      title: '강아지상!',
+      desc: '활발하고 사랑스러운 강아지상이에요!',
+      personality:
+        '<strong>성격</strong> : 친근하고 사교적이에요. 주변 사람들과 금방 친해지고 분위기를 밝게 만들어요.<br>' +
+        '<strong>매력</strong> : 솔직하고 충성스러운 모습이 사람들의 마음을 사로잡아요.<br>' +
+        '<strong>어울리는 짝</strong> : 고양이상과의 케미가 폭발한다고 하죠 🐱'
+    },
+    cat: {
+      emoji: '🐱',
+      title: '고양이상!',
+      desc: '신비롭고 우아한 고양이상이에요!',
+      personality:
+        '<strong>성격</strong> : 독립적이고 자기주관이 뚜렷해요. 조용하지만 내면이 깊어요.<br>' +
+        '<strong>매력</strong> : 표정 변화가 적어 오히려 더 궁금하게 만드는 신비로운 분위기가 있어요.<br>' +
+        '<strong>어울리는 짝</strong> : 강아지상과의 케미가 최고라는 거 알죠 🐶'
+    },
+    mixed: {
+      emoji: '🐾',
+      title: '믹스상!',
+      desc: '강아지상과 고양이상의 매력을 둘 다 가졌어요!',
+      personality:
+        '<strong>성격</strong> : 상황에 따라 유연하게 적응하는 타입이에요. 때론 활발하고 때론 차분해요.<br>' +
+        '<strong>매력</strong> : 두 동물상의 장점을 모아놓은 희귀한 매력의 소유자예요.<br>' +
+        '<strong>어울리는 짝</strong> : 누구와도 잘 어울리는 팔방미인이에요 🌟'
+    }
+  };
+
+  var tfModel = null;
+
+  async function loadModel() {
+    if (!tfModel) {
+      tfModel = await mobilenet.load({ version: 2, alpha: 1.0 });
+    }
+  }
+
+  function calcScores(predictions) {
+    var dogScore = 0, catScore = 0;
+    predictions.forEach(function(p) {
+      var name = p.className.toLowerCase();
+      var prob = p.probability;
+      if (DOG_KEYS.some(function(k) { return name.indexOf(k) !== -1; })) dogScore += prob;
+      if (CAT_KEYS.some(function(k) { return name.indexOf(k) !== -1; })) catScore += prob;
+    });
+    var total = dogScore + catScore;
+    if (total < 0.01) {
+      /* 동물 미감지 시 재미용 랜덤 분배 */
+      var r = 0.3 + ((Date.now() % 400) / 1000);
+      dogScore = r;
+      catScore = 1 - r;
+    } else {
+      dogScore = dogScore / total;
+      catScore = catScore / total;
+    }
+    return { dog: dogScore, cat: catScore };
+  }
+
+  function showResult(scores) {
+    var dogPct = Math.round(scores.dog * 100);
+    var catPct = 100 - dogPct;
+    var type = dogPct >= 60 ? 'dog' : catPct >= 60 ? 'cat' : 'mixed';
+    var info = RESULTS[type];
+
+    document.getElementById('resultEmoji').textContent = info.emoji;
+    document.getElementById('resultTitle').textContent = info.title;
+    document.getElementById('resultDesc').textContent = info.desc;
+    document.getElementById('personalityBox').innerHTML = info.personality;
+    document.getElementById('resultWrap').style.display = 'block';
+    document.getElementById('retryBtn').style.display = 'block';
+
+    setTimeout(function() {
+      document.getElementById('barDog').style.width = dogPct + '%';
+      document.getElementById('barCat').style.width = catPct + '%';
+      document.getElementById('pctDog').textContent = dogPct + '%';
+      document.getElementById('pctCat').textContent = catPct + '%';
+    }, 120);
+  }
+
+  async function analyse(imgEl) {
+    document.getElementById('loadingText').textContent = 'AI 모델 불러오는 중...';
+    await loadModel();
+    document.getElementById('loadingText').textContent = '동물상 계산 중... 🔍';
+    var predictions = await tfModel.classify(imgEl, 20);
+    document.getElementById('loadingWrap').style.display = 'none';
+    showResult(calcScores(predictions));
+  }
+
+  function handleFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = document.getElementById('previewImg');
+      img.src = e.target.result;
+      img.onload = function() {
+        document.getElementById('uploadArea').style.display = 'none';
+        document.getElementById('previewWrap').style.display = 'flex';
+        document.getElementById('loadingWrap').style.display = 'block';
+        analyse(img);
+      };
+    };
+    reader.readAsDataURL(file);
+  }
+
+  document.getElementById('fileInput').addEventListener('change', function(e) {
+    handleFile(e.target.files[0]);
+  });
+
+  var area = document.getElementById('uploadArea');
+  area.addEventListener('dragover', function(e) { e.preventDefault(); area.classList.add('drag-over'); });
+  area.addEventListener('dragleave', function() { area.classList.remove('drag-over'); });
+  area.addEventListener('drop', function(e) {
+    e.preventDefault();
+    area.classList.remove('drag-over');
+    handleFile(e.dataTransfer.files[0]);
+  });
+
+  function resetTest() {
+    document.getElementById('uploadArea').style.display = 'block';
+    document.getElementById('previewWrap').style.display = 'none';
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('resultWrap').style.display = 'none';
+    document.getElementById('retryBtn').style.display = 'none';
+    document.getElementById('barDog').style.width = '0%';
+    document.getElementById('barCat').style.width = '0%';
+    document.getElementById('fileInput').value = '';
+  }
+</script>
+</body>
+</html>
