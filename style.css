@@ -414,6 +414,14 @@ h1 {
   background: var(--theme-btn-hover);
 }
 
+/* ===== AdSense ===== */
+.ad-wrap {
+  width: 100%;
+  max-width: 540px;
+  margin-top: 1.5rem;
+  min-height: 100px;
+}
+
 /* ===== Disqus ===== */
 .disqus-wrap {
   width: 100%;
