@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>로또 번호 추첨기</title>
+  <title>로또 번호 추첨기 — 로또 6/45 자동 번호 생성기</title>
+  <meta name="description" content="1~45 숫자 중 6개 + 보너스 번호를 무작위로 추첨하는 로또 6/45 자동 번호 생성기. 1개 또는 5개 동시 추첨 지원. 당첨 확률 및 등급 정보 제공." />
+  <meta property="og:title" content="로또 번호 추첨기 — 로또 6/45 자동 번호 생성기" />
+  <meta property="og:description" content="무작위 피셔-예이츠 알고리즘으로 공정하게 로또 번호를 추첨합니다. 1개 또는 5개 동시 추첨 가능." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ide-test-builder1.pages.dev/" />
+  <link rel="canonical" href="https://ide-test-builder1.pages.dev/" />
   <link rel="stylesheet" href="style.css" />
   <meta name="google-adsense-account" content="ca-pub-4067903464638354">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4067903464638354" crossorigin="anonymous"></script>
@@ -40,6 +46,66 @@
 
 <script src="script.js"></script>
 
+<section class="info-section">
+  <p class="info-section-title">로또 6/45 안내</p>
+
+  <div class="info-card">
+    <h3>🎱 로또 6/45란?</h3>
+    <p>로또 6/45는 1부터 45까지의 숫자 중 6개를 선택해 당첨 여부를 확인하는 대한민국 대표 복권입니다. 매주 토요일 오후 8시 35분, KBS2 TV와 동행복권 공식 채널을 통해 생방송으로 추첨이 진행되며, 1게임에 1,000원으로 참여할 수 있습니다.</p>
+    <p>2002년 출시 이후 매주 수천만 명이 참여하는 국민 복권으로, 추첨은 7개의 번호(메인 6개 + 보너스 1개)를 선정하는 방식으로 진행됩니다. 보너스 번호는 2등 당첨 여부에만 영향을 미칩니다.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>📊 당첨 등급 및 확률</h3>
+    <table class="prob-table">
+      <thead>
+        <tr>
+          <th>등급</th>
+          <th>당첨 조건</th>
+          <th>당첨 확률</th>
+          <th>상금</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="rank-1">1등</td><td>6개 번호 일치</td><td>1/8,145,060</td><td>당첨금 분배</td></tr>
+        <tr><td class="rank-2">2등</td><td>5개 + 보너스</td><td>1/1,357,510</td><td>당첨금 분배</td></tr>
+        <tr><td class="rank-3">3등</td><td>5개 번호 일치</td><td>1/35,724</td><td>당첨금 분배</td></tr>
+        <tr><td class="rank-4">4등</td><td>4개 번호 일치</td><td>1/733</td><td>5만원</td></tr>
+        <tr><td class="rank-5">5등</td><td>3개 번호 일치</td><td>1/45</td><td>5,000원</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:0.7rem;">1~3등 상금은 해당 회차 판매금액의 50%를 등수별로 분배하며 매회 달라집니다. 당첨 확률은 수학적 계산값이며 실제 결과와 다를 수 있습니다.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>✅ 이용 방법</h3>
+    <ol class="steps-list">
+      <li><span class="step-num">1</span><span><strong>1개 추첨</strong> 버튼을 누르면 메인 6개 번호와 보너스 1개 번호가 즉시 생성됩니다. 각 번호는 구간별 색상으로 구분되어 한눈에 확인할 수 있습니다.</span></li>
+      <li><span class="step-num">2</span><span><strong>5개 동시 추첨</strong> 버튼을 누르면 한 번에 5세트의 번호를 동시에 생성합니다. 여러 게임을 한 번에 준비할 때 편리합니다.</span></li>
+      <li><span class="step-num">3</span><span>카드 하단 <strong>추첨 내역</strong>에서 현재 세션에서 생성한 모든 번호를 확인할 수 있습니다. 회차 배지로 동시 추첨 번호도 구분됩니다.</span></li>
+      <li><span class="step-num">4</span><span>마음에 드는 번호를 찾았다면 <strong>동행복권 앱</strong>이나 판매점에서 직접 구매하세요. 본 사이트는 오락 목적의 번호 생성만 제공합니다.</span></li>
+    </ol>
+  </div>
+
+  <div class="info-card">
+    <h3>💬 자주 묻는 질문</h3>
+    <div class="faq-list">
+      <div>
+        <p class="faq-q">Q. 이 추첨기로 생성한 번호는 당첨 확률이 높나요?</p>
+        <p class="faq-a">아닙니다. 로또는 완전한 무작위 추첨이므로 어떤 번호도 당첨 확률이 동일합니다. 본 도구는 번호 선택의 번거로움을 줄여주는 오락용 서비스입니다.</p>
+      </div>
+      <div>
+        <p class="faq-q">Q. 추첨 알고리즘은 어떻게 작동하나요?</p>
+        <p class="faq-a">피셔-예이츠(Fisher-Yates) 셔플 알고리즘을 사용해 1~45 숫자 배열을 무작위로 섞은 뒤 앞 7개를 선택합니다. 중복 없는 진정한 무작위 번호 생성을 보장합니다.</p>
+      </div>
+      <div>
+        <p class="faq-q">Q. 같은 번호가 다시 나올 수 있나요?</p>
+        <p class="faq-a">한 세트 내에서는 중복이 없습니다. 단, 여러 번 추첨하면 이전에 나온 번호와 같은 조합이 다시 나올 수 있습니다. 이는 수학적으로 완전히 정상입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="ad-wrap">
   <ins class="adsbygoogle"
        style="display:block"
@@ -66,6 +132,21 @@
   })();
 </script>
 <noscript>댓글을 보려면 JavaScript를 활성화하세요. <a href="https://disqus.com/?ref_noscript">Disqus 댓글 보기</a></noscript>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a class="footer-link" href="index.html">로또 추첨기</a>
+    <span class="footer-sep">·</span>
+    <a class="footer-link" href="animal.html">동물상 테스트</a>
+    <span class="footer-sep">·</span>
+    <a class="footer-link" href="about.html">사이트 소개</a>
+    <span class="footer-sep">·</span>
+    <a class="footer-link" href="contact.html">제휴 문의</a>
+    <span class="footer-sep">·</span>
+    <a class="footer-link" href="privacy.html">개인정보처리방침</a>
+  </div>
+  <p class="footer-copy">© 2026 로또 번호 추첨기. 본 사이트의 번호 추첨 결과는 오락용이며, 실제 당첨을 보장하지 않습니다.</p>
+</footer>
 
 </body>
 </html>

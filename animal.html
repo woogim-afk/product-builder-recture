@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>동물상 테스트 🐾 강아지상? 고양이상?</title>
+  <title>동물상 테스트 — 강아지상? 고양이상? AI 얼굴 분석</title>
+  <meta name="description" content="사진을 업로드하면 AI가 강아지상인지 고양이상인지 분석합니다. TensorFlow.js MobileNet 딥러닝 모델 사용. 이미지는 서버로 전송되지 않고 브라우저에서만 처리됩니다." />
+  <meta property="og:title" content="동물상 테스트 — 강아지상? 고양이상? AI 얼굴 분석" />
+  <meta property="og:description" content="AI가 내 얼굴을 분석해 강아지상·고양이상·믹스상을 판별합니다. 브라우저에서 직접 처리, 개인정보 보호." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ide-test-builder1.pages.dev/animal.html" />
+  <link rel="canonical" href="https://ide-test-builder1.pages.dev/animal.html" />
   <link rel="stylesheet" href="style.css" />
   <meta name="google-adsense-account" content="ca-pub-4067903464638354">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4067903464638354" crossorigin="anonymous"></script>
@@ -376,5 +382,61 @@
     document.getElementById('fileInput').value = '';
   }
 </script>
+
+<section class="info-section">
+  <p class="info-section-title">동물상 테스트 안내</p>
+
+  <div class="info-card">
+    <h3>🐾 동물상이란?</h3>
+    <p>동물상(動物相)은 사람의 얼굴이나 외모가 특정 동물을 연상시킨다는 개념입니다. 국내에서는 주로 <strong style="color:var(--text-primary)">강아지상</strong>과 <strong style="color:var(--text-primary)">고양이상</strong>으로 나뉘며, 각각 전혀 다른 매력과 분위기를 가집니다.</p>
+    <p>강아지상은 친근하고 따뜻한 인상을 주어 사람들과 쉽게 어울리는 분위기가 특징이고, 고양이상은 신비롭고 독립적인 분위기로 보는 이의 시선을 사로잡는 매력이 있습니다. 두 유형의 특징을 고루 갖춘 믹스상도 있습니다.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>🤖 AI 분석 방법</h3>
+    <p>구글이 개발한 <strong style="color:var(--text-primary)">MobileNet v2</strong> 딥러닝 모델을 사용합니다. 이 모델은 ImageNet의 1,000가지 카테고리를 학습한 경량 고성능 이미지 분류 AI로, CDN을 통해 브라우저에서 직접 실행됩니다.</p>
+    <p>이미지에서 감지된 특징들을 강아지 관련 키워드와 고양이 관련 키워드로 분류하여 각 유사도를 백분율로 계산합니다. 강아지 또는 고양이 특징이 60% 이상이면 해당 동물상으로, 그 미만이면 믹스상으로 분류됩니다.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>🔒 개인정보 보호 안내</h3>
+    <p>업로드한 사진은 <strong style="color:var(--text-primary)">브라우저 내에서만 처리</strong>되며 외부 서버로 전송되지 않습니다. FileReader API로 이미지를 읽고 TensorFlow.js가 로컬에서 분석을 완료합니다. 페이지를 벗어나거나 새로고침하면 이미지 데이터는 즉시 소멸됩니다.</p>
+    <p>본 테스트는 재미를 위한 오락용 콘텐츠이며 과학적·의학적 근거를 보장하지 않습니다.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>✨ 동물상별 특징</h3>
+    <div class="faq-list">
+      <div>
+        <p class="faq-q">🐶 강아지상의 특징</p>
+        <p class="faq-a">둥글고 부드러운 눈매, 도톰한 볼, 넓은 이마 등이 특징입니다. 첫인상에서 친근함과 신뢰감을 주며, 주변 사람들과 빠르게 친해지는 사교적인 분위기가 있습니다. 솔직하고 충성스러운 이미지가 강합니다.</p>
+      </div>
+      <div>
+        <p class="faq-q">🐱 고양이상의 특징</p>
+        <p class="faq-a">날카롭고 올라간 눈매, 갸름한 얼굴형, 뚜렷한 이목구비가 특징입니다. 처음에는 차갑고 신비로운 인상을 줄 수 있지만, 알아갈수록 깊은 매력을 발견할 수 있습니다. 독립적이고 자기주관이 뚜렷한 이미지입니다.</p>
+      </div>
+      <div>
+        <p class="faq-q">🐾 믹스상의 특징</p>
+        <p class="faq-a">강아지상과 고양이상의 매력을 동시에 지닌 희귀한 유형입니다. 상황에 따라 친근한 분위기와 신비로운 분위기를 모두 연출할 수 있어 다양한 사람들에게 호감을 얻습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a class="footer-link" href="index.html">로또 추첨기</a>
+    <span class="footer-sep">·</span>
+    <a class="footer-link" href="animal.html">동물상 테스트</a>
+    <span class="footer-sep">·</span>
+    <a class="footer-link" href="about.html">사이트 소개</a>
+    <span class="footer-sep">·</span>
+    <a class="footer-link" href="contact.html">제휴 문의</a>
+    <span class="footer-sep">·</span>
+    <a class="footer-link" href="privacy.html">개인정보처리방침</a>
+  </div>
+  <p class="footer-copy">© 2026 로또 번호 추첨기. 본 테스트 결과는 오락용이며 과학적 근거를 보장하지 않습니다.</p>
+</footer>
+
 </body>
 </html>
